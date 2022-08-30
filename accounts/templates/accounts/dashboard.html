@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}IFLEARNING - {{user.username}}{% endblock %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    {% include 'messages.html' %}
+    <main class="container">
+        {% if has_perm_crud_disciplines %}
+            <a href="{% url 'disciplines:disciplines-add' %}"><button class="btn btn-success mt-3">Adicionar Disciplina</button></a>
+        {% endif %}
+
+        <h1 class="text-center text-light mt-3">DISCIPLINAS DISPONÍVEIS</h1>
+        {% if disciplines %}
+        <div class="row" id="available-subjects">
+            {% for discipline in disciplines %}
+                    <div class="col-sm-3 text-center">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">{{discipline.dis_name}}</h5>
+                            <a href="{% url 'accounts:add-discipline-to-user' id=discipline.id %}" class="btn btn-primary">Adicionar</a>
+                          </div>
+                        </div>
+                      </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h2 class="text-center text-light mt-3">Ainda não há disciplinas disponíveis</h2>
+        {% endif %}
+
+        <h1 class="text-center text-light mt-3">Minhas Disciplinas</h1>
+        {% if my_disciplines %}
+        <div class="row" id="available-subjects">
+            {% for discipline in my_disciplines %}
+            <div class="col-sm-3 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{discipline.dis_discipline.dis_name}}</h5>
+                        <a href="#" class="btn btn-primary">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h2 class="text-center text-light mt-3">Você não possui disciplinas</h2>
+        {% endif %}
+    </main>
+{% endblock %}

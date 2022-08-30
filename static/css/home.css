@@ -1,0 +1,35 @@
+:root{
+    --green: #40E747;
+}
+
+.btn-green{
+    background-color: var(--green);
+}
+
+h1{
+    color: white;
+}
+
+.title{
+    padding-top: 4em;
+}
+
+.title > h1 > span{
+    color: #40E747;
+}
+
+#features > .col{
+    background-color: red !important;
+    height: 15em;
+}
+
+.btn{
+    width: 10em !important;
+}
+
+main{
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

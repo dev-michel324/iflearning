@@ -1,0 +1,78 @@
+body{
+    background-color: #383737 !important;
+}
+
+a {
+    color: #4C82EC;
+}
+
+#offcanvasLabel > span{
+    color: #40E747;
+}
+
+.title > h1 {
+    font-size: 35pt;
+    font-weight: bolder;
+    color: white;
+}
+
+#title-login{
+    padding: 3em 3em;
+}
+
+.btn-login{
+    background-color: #40E747 !important;
+    color: white;
+    width: 10em !important;
+}
+
+.btn-login:hover{
+    border-color: #40E747 !important;
+    background-color: #33c23a !important;
+}
+
+.box-auth{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #303030 !important;
+    width: 28em;
+    box-shadow: 2px 2px 5px black;
+}
+
+#form-login{
+    position: relative;
+    width: 85%;
+}
+
+.text-account > p{
+    color: white;
+    font-weight: bold;
+}
+
+.text-account > p > a{
+    text-decoration: none;
+}
+
+.btn-home{
+    border: none;
+    background-color: black;
+    height: 3em;
+    width: 3em;
+}
+
+.btn-home:hover{
+    transition: 0.3s;
+    background-color: rgb(43, 43, 43);
+}
+
+#dropdown-disciplines-offcanvas > button{
+    background-color: transparent;
+    border: none;
+    padding-left: 0;
+}
+
+#navbar-toggler{
+    background-color: transparent;
+    border: none;
+}
