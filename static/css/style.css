@@ -76,3 +76,25 @@ a {
     background-color: transparent;
     border: none;
 }
+
+.card-header-module{
+    display: flex;
+    gap: 16px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-header-module > form > button{
+    background-color: transparent;
+    border: none;
+}
+
+.card-header-module > form > button > i{
+    color: rgb(181, 56, 56);
+}
+
+.card-header-module > form > button > i:hover{
+    cursor: pointer;
+    color: rgb(154, 0, 0);
+}

@@ -4,24 +4,31 @@
 
 {% block content %}
     {% include 'navbar.html' %}
-    {% include 'messages.html' %}
     <main class="container">
+        {% include 'messages.html' %}
         {% if has_perm_crud_disciplines %}
             <a href="{% url 'disciplines:disciplines-add' %}"><button class="btn btn-success mt-3">Adicionar Disciplina</button></a>
         {% endif %}
 
         <h1 class="text-center text-light mt-3">DISCIPLINAS DISPONÍVEIS</h1>
         {% if disciplines %}
-        <div class="row" id="available-subjects">
+        <div class="row mx-auto" id="available-subjects">
             {% for discipline in disciplines %}
-                    <div class="col-sm-3 text-center">
+                    <div class="col-md-5 mt-2 text-center">
                         <div class="card">
                           <div class="card-body">
-                            <h5 class="card-title">{{discipline.dis_name}}</h5>
+                            <div class="card-header-module">
+                                <h5 class="card-title">{{discipline.dis_name}}</h5>
+                                {% if discipline.dis_user_created.id == user.id %}
+                                <a href="{% url 'disciplines:discipline-edit' discipline_id=discipline.id %}"><i class="fa-solid fa-pen"></i></a>
+                                <form action="{% url 'disciplines:disciplines-remove' discipline_id=discipline.id %}" method="post">{%csrf_token%}<button><i class="fa-solid fa-trash"></i></button></form> 
+                                {% endif %}
+                                </div>
+                            
                             <a href="{% url 'accounts:add-discipline-to-user' id=discipline.id %}" class="btn btn-primary">Adicionar</a>
-                          </div>
+                            </div>
                         </div>
-                      </div>
+                    </div>
             {% endfor %}
         </div>
         {% else %}
@@ -30,13 +37,24 @@
 
         <h1 class="text-center text-light mt-3">Minhas Disciplinas</h1>
         {% if my_disciplines %}
-        <div class="row" id="available-subjects">
+        <div class="row mx-auto" id="available-subjects">
             {% for discipline in my_disciplines %}
-            <div class="col-sm-3 text-center">
+            <div class="col-md-5 mt-2 text-center">
                 <div class="card">
                     <div class="card-body">
+                        <div class="card-header-module">
                         <h5 class="card-title">{{discipline.dis_discipline.dis_name}}</h5>
-                        <a href="#" class="btn btn-primary">Acessar</a>
+                        {% if discipline.dis_discipline.dis_user_created.id == user.id %}
+                        <a href="{% url 'disciplines:discipline-edit' discipline_id=discipline.dis_discipline.id %}"><i class="fa-solid fa-pen"></i></a>
+                        <form action="{% url 'disciplines:disciplines-remove' discipline_id=discipline.dis_discipline.id %}" method="post">{%csrf_token%}<button><i class="fa-solid fa-trash"></i></button></form> 
+                        {% endif %}
+                        </div>
+                        <div class="card-header-module">
+                            <a href="{% url 'disciplines:showDiscipline' id=discipline.dis_discipline.id %}" class="btn btn-primary">Acessar</a>
+                            <form action="{% url 'accounts:remove-discipline-to-user' id=discipline.dis_discipline.id %}" method="post">{%csrf_token%}
+                                <input type="submit" class="btn btn-danger" value="Remover">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

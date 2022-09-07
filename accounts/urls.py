@@ -12,5 +12,6 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('logout', views.userLogout, name='logout'),
     path('addDisciplineToUser/<int:id>', views.addDisciplineToUser,
-         name="add-discipline-to-user")
+         name="add-discipline-to-user"),
+    path('removeDisciplineToUser/<int:id>', views.removeDisciplineToUser, name="remove-discipline-to-user")
 ]

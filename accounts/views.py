@@ -43,11 +43,22 @@ def addDisciplineToUser(request, id):
     messages.error(request, "Você já possui essa disciplina.")
     return redirect('accounts:dashboard')
 
+@login_required()
+def removeDisciplineToUser(request, id):
+    discipline = get_object_or_404(tb_disciplines, pk=id)
+    disciplineUserExists = tb_dis_user.objects.filter(
+        dis_discipline=discipline, dis_user=request.user)[:1]
+    if disciplineUserExists.exists():
+        disciplineUser = get_object_or_404(tb_dis_user, pk=disciplineUserExists[0].id)
+        disciplineUser.delete()
+        messages.success(request, "Disciplina Removida com sucesso.")
+        return redirect('accounts:dashboard')
+    messages.error(request, "Você não possui essa disciplina.")
+    return redirect('accounts:dashboard')
 
 def userLogin(request):
     if request.user.is_authenticated:
         return redirect("accounts:dashboard")
-    form = UserLoginModelForm()
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -55,8 +66,8 @@ def userLogin(request):
         if user is not None:
             login(request, user)
             return redirect('accounts:dashboard')
-        else:
-            messages.error(request, "Email ou senha inválidos")
+        messages.error(request, "Email ou senha inválidos")
+    form = UserLoginModelForm()
     return render(request, "accounts/auth/login.html", {'form': form})
 
 

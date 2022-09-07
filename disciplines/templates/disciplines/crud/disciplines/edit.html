@@ -2,16 +2,16 @@
 
 {% load widget_tweaks %}
 
-{% block title %}Adicionar disciplina{% endblock %}
+{% block title %}Editar disciplina{% endblock %}
 
 {% block content %}
 {% include 'navbar.html' %}
     <main class="container">
         {% include 'messages.html' %}
-        <h1>Adicionar disciplina</h1>
-        <form action="{% url 'disciplines:disciplines-add' %}" method="post">{% csrf_token %}
+        <h1>Editar disciplina</h1>
+        <form action="" method="post">{% csrf_token %}
             {% render_field form.dis_name class="form-control" id="id_dis_name" placeholder="Nome da Disciplina" %}
-            <button class="btn btn-primary mt-3">Adicionar</button>
+            <button class="btn btn-primary mt-3">Salvar</button>
         </form>
     </main>
 

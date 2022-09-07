@@ -11,7 +11,7 @@ class ModulesAdmin(admin.ModelAdmin):
 
 
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ['cla_name', 'cla_module']
+    list_display = ['cla_name']
 
 
 admin.site.register(tb_disciplines, DisciplinesAdmin)

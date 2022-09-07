@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %}Editar modulo{% endblock %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <main class="container">
+        {% include 'messages.html' %}
+        <h1 class="text-light">Editar modulo</h1>
+
+        <form action="" method="post">{%csrf_token%}
+            <label class="text-light" for="id_mod_name">{{form.mod_name.label}}</label>
+            {% render_field form.mod_name class="form-control" id="id_mod_name" placeholder="Modulo" %}
+            <button class="btn btn-primary mt-3">Salvar</button>
+        </form>
+
+    </main>
+    
+
+{% endblock %}

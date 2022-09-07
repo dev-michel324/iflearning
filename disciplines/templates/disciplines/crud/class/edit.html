@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %}Editar Aula{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+    <main class="container">
+        {% include 'messages.html' %}
+        <h1>Editar Aula</h1>
+        <form action="" method="post">{% csrf_token %}
+            {% render_field form.cla_name class="form-control" id="id_cla_name" placeholder="Titulo da Aula" %}
+            {% render_field form.cla_videourl class="form-control mt-3" id="id_cla_videourl" placeholder="Link da Aula" %}
+            <button class="btn btn-primary mt-3">Salvar</button>
+        </form>
+    </main>
+
+{% endblock %}
