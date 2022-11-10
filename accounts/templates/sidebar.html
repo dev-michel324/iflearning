@@ -1,0 +1,22 @@
+{% load static %}
+
+<header id="sidebar">
+        <nav>
+            <div id="sidebar-options">
+                <div class="option pt-2">
+                    <img src="{% static 'images/people.png' %}" class="profile" alt="profile">
+                    <p>Perfil</p>
+                </div>
+                <div class="option">
+                    <img src="{% static 'icons/courses.png' %}" class="option-icon" alt="profile">
+                    <p>Cursos</p>
+                </div>
+                <div class="option">
+                    <img src="{% static 'icons/books.png' %}" class="option-icon" alt="profile">
+                    <p>Meus cursos</p>
+                </div>
+            </div>
+        </nav>
+</header>
+
+<button id="arrow" onclick="openCloseSideBar()" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Abrir ou fechar barra de navegação."><img src="{% static 'icons/right-arrow.png' %}" alt=""></button>

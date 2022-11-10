@@ -5,43 +5,74 @@
 {% block title %}IFLEARNING - Inicio{% endblock %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <style>
+      #first-description {
+        height: 700px;
+        background-size: cover;
+        background-position: center;
+        background-image: url("{% static 'images/background.jpg' %}");
+        background-repeat: no-repeat;
+      }
+    </style>
+
 {% endblock %}
 
 {% block content %}
-<div class="container">
-{% include 'messages.html' %}
-</div>
-        <main class="container">
-          
-            <div class="title text-center">
-                <h1>IF <span>LEARNING</span></h1>
-            </div>
-            
-            <div class="container mt-5 text-center">
-                <div id="features" class="row">
-                  <div class="col rounded-3 me-3">
-                    Column
-                  </div>
-                  <div class="col rounded-3 me-3">
-                    Column
-                  </div>
-                  <div class="col rounded-3">
-                    Column
-                  </div>
-                </div>
-              </div>
 
-              <div class="container mt-5 text-center">
-                <div class="row justify-content-md-center">
-                  <div class="col mt-2 col-lg-3">
-                    <a href="{% url 'accounts:register' %}"><button type="button" class="btn btn-lg btn-dark">Cadastre-se</button></a>
-                  </div>
-                  <div class="col mt-2 col-lg-3">
-                    <a href="{% url 'accounts:login' %}"><button type="button" class="btn btn-lg btn-login text-light">Login</button></a>
-                  </div>
+{% include 'messages.html' %}
+
+    {% include 'navbar_top.html' %}
+    
+    <main>
+
+        <section id="first-description">
+                <div id="content" class="row align-items-center justify-content-center">
+                    <div class="col-4" id="first-title">
+                        <h1>O caminho certo para sua aprovação</h1>
+                    </div>
+                    <div class="col-4 first-content rounded-3 shadow">
+                        <h2 class="pt-4 pb-4">100% gratuito e com conteúdos bem avaliados pela comunidade</h2>
+                        <div id="first-content-images">
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <img src="{% static 'icons/money.png' %}" alt="">
+                                </div>
+                                <div class="col-4">
+                                    <img src="{% static 'icons/customer-feedback.png' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+        </section>
+
+        <section id="second-description">
+            <h1 class="text-center py-5">Para quem é a plataforma</h1>
+
+            <div class="row pb-5 justify-content-center">
+                <div class="col-4 rounded-3 shadow">
+                    <div class="content">
+                        <img class="my-3" src="{% static 'icons/check.png' %}" alt="">
+                        <h3>Para todos aqueles que querem ser
+                            aprovados no Enem ou Vestibular.
+                        </h3>
+                    </div>
                 </div>
-        </main>
+                <div class="col-4 rounded-3 shadow">
+                    <div class="content">
+                        <img class="my-3" src="{% static 'icons/money.png' %}" alt="">
+                        <h3>Para quem não possui condições de pagar
+                            um curso de qualidade.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
 
 {% endblock %}

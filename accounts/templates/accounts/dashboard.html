@@ -1,67 +1,73 @@
-{% extends 'base.html' %}
+{% extends 'base_dashboard.html' %}
+
+{% load static %}
 
 {% block title %}IFLEARNING - {{user.username}}{% endblock %}
 
 {% block content %}
-    {% include 'navbar.html' %}
-    <main class="container">
-        {% include 'messages.html' %}
+
+    <div class="container">
+    <h1 class="text-center my-3">Disciplinas disponíveis</h1>
+
         {% if has_perm_crud_disciplines %}
             <a href="{% url 'disciplines:disciplines-add' %}"><button class="btn btn-success mt-3">Adicionar Disciplina</button></a>
         {% endif %}
 
-        <h1 class="text-center text-light mt-3">DISCIPLINAS DISPONÍVEIS</h1>
         {% if disciplines %}
-        <div class="row mx-auto" id="available-subjects">
+        <div class="row justify-content-center available-subjects">
             {% for discipline in disciplines %}
-                    <div class="col-md-5 mt-2 text-center">
-                        <div class="card">
-                          <div class="card-body">
-                            <div class="card-header-module">
-                                <h5 class="card-title">{{discipline.dis_name}}</h5>
-                                {% if discipline.dis_user_created.id == user.id %}
-                                <a href="{% url 'disciplines:discipline-edit' discipline_id=discipline.id %}"><i class="fa-solid fa-pen"></i></a>
-                                <form action="{% url 'disciplines:disciplines-remove' discipline_id=discipline.id %}" method="post">{%csrf_token%}<button><i class="fa-solid fa-trash"></i></button></form> 
-                                {% endif %}
-                                </div>
-                            
-                            <a href="{% url 'accounts:add-discipline-to-user' id=discipline.id %}" class="btn btn-primary">Adicionar</a>
-                            </div>
-                        </div>
+
+                <div class="card-dashboard shadow">
+                    <div class="img">
+                        <img src="{% static 'images/teste.jpeg' %}" alt="">
                     </div>
+                    <div class="title text-center mt-1"><h3>{{discipline.dis_name}}</h3></div>
+                    <div class="card-footer text-center">
+                        <a href="{% url 'accounts:add-discipline-to-user' id=discipline.id %}">
+                            <button class="btn btn-success">Adicionar</button>
+                        </a>
+                    </div>
+                </div>
+
             {% endfor %}
         </div>
+
         {% else %}
-        <h2 class="text-center text-light mt-3">Ainda não há disciplinas disponíveis</h2>
+            <p class="content-not-available text-center mx-auto">Infelizmente, ainda não há disciplinas disponíveis.</p>
         {% endif %}
 
-        <h1 class="text-center text-light mt-3">Minhas Disciplinas</h1>
+        <h1 class="text-center my-3">Minhas disciplinas</h1>
+        
         {% if my_disciplines %}
-        <div class="row mx-auto" id="available-subjects">
+        <div class="row mb-5 justify-content-center available-subjects">
             {% for discipline in my_disciplines %}
-            <div class="col-md-5 mt-2 text-center">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-header-module">
-                        <h5 class="card-title">{{discipline.dis_discipline.dis_name}}</h5>
-                        {% if discipline.dis_discipline.dis_user_created.id == user.id %}
-                        <a href="{% url 'disciplines:discipline-edit' discipline_id=discipline.dis_discipline.id %}"><i class="fa-solid fa-pen"></i></a>
-                        <form action="{% url 'disciplines:disciplines-remove' discipline_id=discipline.dis_discipline.id %}" method="post">{%csrf_token%}<button><i class="fa-solid fa-trash"></i></button></form> 
-                        {% endif %}
-                        </div>
-                        <div class="card-header-module">
-                            <a href="{% url 'disciplines:showDiscipline' id=discipline.dis_discipline.id %}" class="btn btn-primary">Acessar</a>
+            
+            <div class="card-dashboard shadow">
+                <div class="img">
+                    <img src="{% static 'images/teste.jpeg' %}" alt="">
+                </div>
+                <div class="title text-center mt-1"><h3>{{discipline.dis_discipline.dis_name}}</h3></div>
+                <div class="card-footer text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
                             <form action="{% url 'accounts:remove-discipline-to-user' id=discipline.dis_discipline.id %}" method="post">{%csrf_token%}
                                 <input type="submit" class="btn btn-danger" value="Remover">
                             </form>
+                        </div>
+                        <div class="col-4">
+                            <a href="{% url 'disciplines:showDiscipline' id=discipline.dis_discipline.id %}">
+                                <button class="btn btn-success">Acessar</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+
         {% else %}
         <h2 class="text-center text-light mt-3">Você não possui disciplinas</h2>
         {% endif %}
-    </main>
+
+    </div>
 {% endblock %}
