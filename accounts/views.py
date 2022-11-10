@@ -60,6 +60,8 @@ def userLogin(request):
     if request.user.is_authenticated:
         return redirect("accounts:dashboard")
     if request.method == 'POST':
+        form = UserLoginModelForm(request.POST)
+        # if form.is_valid():
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, username=email, password=password)
@@ -67,6 +69,7 @@ def userLogin(request):
             login(request, user)
             return redirect('accounts:dashboard')
         messages.error(request, "Email ou senha inválidos")
+        return render(request, 'accounts/auth/login.html', {'form': form})
     form = UserLoginModelForm()
     return render(request, "accounts/auth/login.html", {'form': form})
 
@@ -80,7 +83,6 @@ def register(request):
                 email=form.cleaned_data['email'],
                 first_name=form.cleaned_data['firstname'],
                 last_name=form.cleaned_data['lastname'],
-                birth=form.cleaned_data['birth'],
             )
             user.set_password(form.cleaned_data['password'])
             user.save()
