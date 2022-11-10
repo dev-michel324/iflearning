@@ -10,7 +10,7 @@ class UserAdmin(auth_admin.UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     model = CustomUser
-    fieldsets = auth_admin.UserAdmin.fieldsets + (
-        ("Campos personalizados", {
-         "fields": ("birth", "school_grade",)}),
-    )
+    # fieldsets = auth_admin.UserAdmin.fieldsets + (
+    #     ("Campos personalizados", {
+    #      "fields": ("birth", "school_grade",)}),
+    # )
