@@ -1,15 +1,16 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.hashers import check_password
 
-from .models import CustomUser, SCHOOL_GRADE
+from .models import CustomUser
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ["username", "first_name", "last_name",
-                  "email", "birth", "school_grade"]
+                  "email"]
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -17,7 +18,7 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ["username", "first_name", "last_name",
-                  "email", "birth", "school_grade"]
+                  "email"]
 
 
 class UserLoginModelForm(ModelForm):
@@ -38,6 +39,20 @@ class UserLoginModelForm(ModelForm):
         required=True
     )
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError('Não existe usuário com esse email.')
+        return email
+
+    def clean_password(self):
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
+        user = CustomUser.objects.get(email=email)
+        print("CHECAGEM" + str(check_password(password, user.password)))
+        if not check_password(password, user.password):
+            raise forms.ValidationError('Senha incorreta.')
+        return password
 
 class UserRegisterModelForm(forms.ModelForm):
     password = forms.CharField(label="Senha", widget=forms.PasswordInput)
@@ -55,21 +70,11 @@ class UserRegisterModelForm(forms.ModelForm):
         label="Sobrenome",
         required=True
     )
-    birth = forms.DateField(
-        label="Data de nascimento",
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        required=True,
-    )
-
-    school_grade = forms.ChoiceField(
-        label="Grau escolar",
-        choices=SCHOOL_GRADE
-    )
 
     class Meta:
         model = CustomUser
         fields = ['username', 'firstname', 'lastname',
-                  'email', 'birth', 'school_grade']
+                  'email']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
