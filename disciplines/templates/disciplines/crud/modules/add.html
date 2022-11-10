@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base_dashboard.html' %}
 
 {% load widget_tweaks %}
 
 {% block title %}Adicionar modulo{% endblock %}
 
 {% block content %}
-    {% include 'navbar.html' %}
     
-    <main class="container">
+    <div class="container">
         {% include 'messages.html' %}
-        <h1 class="text-light">Adicionar modulo</h1>
+        <h1 class="text-center my-3">Adicionar modulo</h1>
 
         <form action="" method="post">
             {%csrf_token%}
@@ -18,7 +17,7 @@
             <button class="btn btn-success mt-3">Adicionar</button>
         </form>
 
-    </main>
+    </div>
     
 
 {% endblock %}
