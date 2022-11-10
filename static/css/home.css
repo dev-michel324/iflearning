@@ -1,35 +1,82 @@
-:root{
-    --green: #40E747;
+body {
+    overflow-x: hidden;
 }
 
-.btn-green{
-    background-color: var(--green);
+#first-description {
+    height: 700px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('images/background.jpg');
+    background-repeat: no-repeat;
 }
 
-h1{
+#first-description > #content{
+    transform: translateY(50%);
+}
+
+@media(max-width: 790px){
+    #first-description > #content{
+        transform: none;
+    }
+
+    #first-title {
+        width: 80% !important;
+    }
+
+    #first-title > h1{
+        padding-top: 10px;
+    }
+}
+
+h1 {
     color: white;
+    font-size: 35pt;
 }
 
-.title{
-    padding-top: 4em;
+#first-title {
+    width: 50%;
+    text-align: center;
 }
 
-.title > h1 > span{
-    color: #40E747;
+.first-content {
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.560);
+    text-align: center;
 }
 
-#features > .col{
-    background-color: red !important;
-    height: 15em;
+#first-content-images img{
+    width: 80px;
+    height: 80px;
 }
 
-.btn{
-    width: 10em !important;
+#second-description{
+    background: rgb(8,3,92);
+    background: -moz-linear-gradient(90deg, rgba(8,3,92,1) 0%, rgba(36,86,233,1) 100%, rgba(0,176,212,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(8,3,92,1) 0%, rgba(36,86,233,1) 100%, rgba(0,176,212,1) 100%);
+    background: linear-gradient(90deg, rgba(8,3,92,1) 0%, rgba(36,86,233,1) 100%, rgba(0,176,212,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08035c",endColorstr="#00b0d4",GradientType=1);
+    min-height: 500px;
 }
 
-main{
-    position: fixed;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#second-description > .row .col-4 {
+    background-color: rgba(255, 255, 255, 0.560);
+    text-align: center;
+    min-width: 240px;
+    max-width: 400px;
+    height: 300px;
+}
+
+#second-description > .row > .col-4 img{
+    width: 80px;
+    height: 80px;
+}
+
+#second-description > .row > .col-4 .content{
+    transform: translateY(10%);
+}
+
+#second-description > .row {
+    gap: 64px;
 }

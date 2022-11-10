@@ -1,0 +1,29 @@
+.login {
+    background-color: rgba(255, 255, 255, 0.830);
+    min-height: 400px;
+    width: 500px;
+    transition: 0.3s;
+}
+
+#btn-login {
+    background-color: #18C100;
+    color: white;
+}
+
+@media(max-width: 550px) {
+    .login {
+        width: 400px;
+    }
+}
+
+@media(max-width: 427px) {
+    .login {
+        width: 350px;
+    }
+}
+
+@media(max-width: 360px) {
+    .login {
+        width: 300px;
+    }
+}

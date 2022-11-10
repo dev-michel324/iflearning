@@ -1,100 +1,17 @@
-body{
-    background-color: #383737 !important;
+ul {
+    padding-left: 0 !important;
 }
 
-a {
-    color: #4C82EC;
-}
-
-#offcanvasLabel > span{
-    color: #40E747;
-}
-
-.title > h1 {
-    font-size: 35pt;
-    font-weight: bolder;
+#brand-begin {
     color: white;
 }
 
-#title-login{
-    padding: 3em 3em;
+#brand-end {
+    color: #40e747;
 }
 
-.btn-login{
-    background-color: #40E747 !important;
-    color: white;
-    width: 10em !important;
+.navbar {
+    background-color: #55606A;
 }
 
-.btn-login:hover{
-    border-color: #40E747 !important;
-    background-color: #33c23a !important;
-}
-
-.box-auth{
-    position: relative;
-    left: 50%;
-    transform: translate(-50%);
-    background-color: #303030 !important;
-    width: 28em;
-    box-shadow: 2px 2px 5px black;
-}
-
-#form-login{
-    position: relative;
-    width: 85%;
-}
-
-.text-account > p{
-    color: white;
-    font-weight: bold;
-}
-
-.text-account > p > a{
-    text-decoration: none;
-}
-
-.btn-home{
-    border: none;
-    background-color: black;
-    height: 3em;
-    width: 3em;
-}
-
-.btn-home:hover{
-    transition: 0.3s;
-    background-color: rgb(43, 43, 43);
-}
-
-#dropdown-disciplines-offcanvas > button{
-    background-color: transparent;
-    border: none;
-    padding-left: 0;
-}
-
-#navbar-toggler{
-    background-color: transparent;
-    border: none;
-}
-
-.card-header-module{
-    display: flex;
-    gap: 16px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.card-header-module > form > button{
-    background-color: transparent;
-    border: none;
-}
-
-.card-header-module > form > button > i{
-    color: rgb(181, 56, 56);
-}
-
-.card-header-module > form > button > i:hover{
-    cursor: pointer;
-    color: rgb(154, 0, 0);
-}
+.nav-link {color: white;}
