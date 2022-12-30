@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .mail_service import send_email_notification_async, send_email
+from django.template.loader import get_template
 
 from accounts.models import CustomUser
 from .forms import UserLoginModelForm, UserRegisterModelForm
@@ -61,12 +63,23 @@ def userLogin(request):
         return redirect("accounts:dashboard")
     if request.method == 'POST':
         form = UserLoginModelForm(request.POST)
-        # if form.is_valid():
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        email:str = request.POST.get('email')
+        password:str = request.POST.get('password')
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
+            context_to_mail: dict = {
+                "device": {
+                    "ip": request.META.get('REMOTE_ADDR'),
+                    "user_agent": request.META['HTTP_USER_AGENT']
+                }
+            }
+            send_email_notification_async(
+                subject="New device connected to IFLEARNING",
+                email_type="NEW_DEVICE_SIGNIN",
+                context_data=context_to_mail,
+                recipients=[user.email]
+            )
             return redirect('accounts:dashboard')
         messages.error(request, "Email ou senha inválidos")
         return render(request, 'accounts/auth/login.html', {'form': form})
@@ -86,12 +99,19 @@ def register(request):
             )
             user.set_password(form.cleaned_data['password'])
             user.save()
+            template = get_template("emails/new_register.html")
+            context_data:dict = {
+                "user": instance,
+                "login_url": "http://127.0.0.1:8000/login"
+            }
+            html = template.render(context_data)
+            send_email(subject="Welcome to IFLEARNING", html_content=html,
+                recipients=[instance.email], message="Welcome to IFLEARNING")
             messages.success(request, "Usuário cadastrado com sucesso!")
             return redirect('accounts:login')
         return render(request, "accounts/auth/register.html", {'form': form})
     form = UserRegisterModelForm()
     return render(request, "accounts/auth/register.html", {'form': form})
-
 
 def userLogout(request):
     if request.user.is_authenticated:
