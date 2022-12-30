@@ -7,7 +7,7 @@ from threading import Thread
 
 EMAIL_NOTIFICATION_TYPES: dict = {
     "NEW_DEVICE_SIGNIN": "notifications/new_device_signin.html",
-    "NEW_MODULE": "notifications/new_module.html", # change
+    "NEW_MODULE": "notifications/new_module.html",
     "NEW_DISCIPLINE": "notifications/new_discipline.html",
 }
 
