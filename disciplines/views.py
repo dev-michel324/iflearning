@@ -3,9 +3,12 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import redirect
-
+from accounts.mail_service import send_email_notification_async
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import disciplines
 from .models import tb_disciplines, tb_modules
+from accounts.models import CustomUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -28,7 +31,8 @@ def addDiscipline(request):
             discipline = tb_disciplines(
                 dis_name=name,
                 dis_user_created=request.user
-            ).save()
+            )
+            discipline.save()
             messages.success(request, "Disciplina adicionada.")
             return redirect("accounts:dashboard")
         return render(request, "disciplines/crud/disciplines/add.html", {'form': form})
@@ -220,3 +224,31 @@ def verifyIfUserIsOwnerOfDiscipline(request, discipline_id):
         messages.error(request, 'A disciplina não existe, ou então você não é o dono dessa disciplina.')
         return False
     return True
+
+@receiver(post_save, sender=tb_disciplines)
+def send_notification_new_discipline(sender, instance, created, **kwargs):
+    if created:
+        context_to_mail: dict = {
+                "discipline": instance,
+            }
+        users = CustomUser.objects.values_list('email', flat=True)
+        send_email_notification_async(
+            subject="Access the new discipline added in the IFLEARNING",
+            email_type="NEW_DISCIPLINE",
+            context_data=context_to_mail,
+            recipients=users
+        )
+
+@receiver(post_save, sender=tb_modules)
+def send_notification_new_module(sender, instance, created, **kwargs):
+    if created:
+        context_to_mail: dict = {
+            "module": instance,
+        }
+        users = CustomUser.objects.values_list('email', flat=True)
+        send_email_notification_async(
+            subject="Access the new module added in the IFLEARNING",
+            email_type="NEW_MODULE",
+            context_data=context_to_mail,
+            recipients=users
+        )
