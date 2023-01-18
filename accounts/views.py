@@ -91,9 +91,10 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterModelForm(request.POST)
         if form.is_valid():
+            email: str = form.cleaned_data['email']
             user = CustomUser(
                 username=form.cleaned_data['username'],
-                email=form.cleaned_data['email'],
+                email=email,
                 first_name=form.cleaned_data['firstname'],
                 last_name=form.cleaned_data['lastname'],
             )
@@ -101,12 +102,12 @@ def register(request):
             user.save()
             template = get_template("emails/new_register.html")
             context_data:dict = {
-                "user": instance,
+                "user": email,
                 "login_url": "http://127.0.0.1:8000/login"
             }
             html = template.render(context_data)
             send_email(subject="Welcome to IFLEARNING", html_content=html,
-                recipients=[instance.email], message="Welcome to IFLEARNING")
+                recipients=[email], message="Welcome to IFLEARNING")
             messages.success(request, "Usuário cadastrado com sucesso!")
             return redirect('accounts:login')
         return render(request, "accounts/auth/register.html", {'form': form})
