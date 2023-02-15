@@ -9,7 +9,7 @@ from .mail_service import send_email_notification_async, send_email
 from django.template.loader import get_template
 
 from accounts.models import CustomUser
-from .forms import UserLoginModelForm, UserRegisterModelForm
+from .forms import UserLoginModelForm, UserRegisterModelForm, UserEditModelForm
 
 from disciplines.models import tb_disciplines, tb_dis_user
 
@@ -113,6 +113,21 @@ def register(request):
         return render(request, "accounts/auth/register.html", {'form': form})
     form = UserRegisterModelForm()
     return render(request, "accounts/auth/register.html", {'form': form})
+
+def userEdit(request):
+    if request.method == "POST" and request.FILES['photo']:
+        form = UserEditModelForm(request.POST)
+        if form.is_valid():
+            photo = request.FILES['photo']
+            user = CustomUser.objects.get(id=request.user.id)
+            user.photo = photo
+            user.save()
+            messages.success(request, "Usuário atualizado com sucesso.")
+            return redirect('accounts:home')
+        return render(request, "accounts/auth/edit.html", {'form': form})
+    instance = CustomUser.objects.get(id=request.user.id)
+    form = UserEditModelForm(instance=instance)
+    return render(request, "accounts/auth/edit.html", {'form': form})
 
 def userLogout(request):
     if request.user.is_authenticated:
