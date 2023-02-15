@@ -1,12 +1,17 @@
 {% load static %}
 
 <header id="sidebar">
+    {% comment %}
+        {% static 'images/people.png' %}
+    {% endcomment %}
         <nav>
             <div id="sidebar-options">
+                <a href="{% url 'accounts:user.edit' %}" style="text-decoration: none;">
                 <div class="option pt-2">
-                    <img src="{% static 'images/people.png' %}" class="profile" alt="profile">
+                    <img src="{%if user.photo %} {{user.photo}} {% else %} {% static 'images/people.png' %} {% endif %}" class="profile" alt="profile">
                     <p>Perfil</p>
                 </div>
+                </a>
                 <div class="option">
                     <img src="{% static 'icons/courses.png' %}" class="option-icon" alt="profile">
                     <p>Cursos</p>
