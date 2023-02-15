@@ -3,6 +3,9 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.hashers import check_password
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 from .models import CustomUser
 
 
@@ -90,3 +93,10 @@ class UserRegisterModelForm(forms.ModelForm):
         if password is not None and password != password_2:
             self.add_error("password_2", "As senhas não estão iguais")
         return cleaned_data
+
+class UserEditModelForm(forms.ModelForm):
+    photo = forms.ImageField(label="Foto de perfil", required=False)
+
+    class Meta:
+        model = CustomUser
+        fields = ['photo']
