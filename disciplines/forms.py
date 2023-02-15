@@ -3,14 +3,19 @@ from .models import tb_class, tb_disciplines, tb_modules
 
 
 class AddDiscipline(forms.ModelForm):
-    class Meta:
-        model = tb_disciplines
-        fields = ['dis_name']
+    dis_photo = forms.ImageField(
+        label="Imagem da disciplina",
+        required=True
+    )
 
     dis_name = forms.CharField(
         label="Nome",
         required=True
     )
+
+    class Meta:
+        model = tb_disciplines
+        fields = ['dis_name', 'dis_photo']
 
 class AddModule(forms.ModelForm):
     class Meta:
