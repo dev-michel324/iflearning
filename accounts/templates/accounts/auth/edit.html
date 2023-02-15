@@ -1,0 +1,22 @@
+{% extends 'base_dashboard.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}IFLEARNING - {{user.username}}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+    <h1 class="text-center my-3">Editar meus dados</h1>
+
+    <form action="{% url 'accounts:user.edit' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{form|crispy}}
+        <div class="text-center mt-5">
+            <button id="btn-login" class="btn btn-success btn-lg">Salvar</button>
+        </div>
+      </form>
+
+    </div>
+{% endblock %}
