@@ -4,6 +4,7 @@ from accounts.models import CustomUser
 
 class tb_disciplines(models.Model):
     dis_name = models.CharField(max_length=255, unique=True, null=False)
+    dis_photo = models.ImageField(upload_to="storage/app/disciplines/covers", null=True, blank=True)
     dis_user_created = models.ForeignKey(
         CustomUser, related_name="user_dis_created", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
