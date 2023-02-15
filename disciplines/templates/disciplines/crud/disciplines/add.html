@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
 {% block title %}Adicionar disciplina{% endblock %}
 
@@ -9,8 +9,8 @@
     <main class="container">
         {% include 'messages.html' %}
         <h1>Adicionar disciplina</h1>
-        <form action="{% url 'disciplines:disciplines-add' %}" method="post">{% csrf_token %}
-            {% render_field form.dis_name class="form-control" id="id_dis_name" placeholder="Nome da Disciplina" %}
+        <form action="{% url 'disciplines:disciplines-add' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{form|crispy}}
             <button class="btn btn-primary mt-3">Adicionar</button>
         </form>
     </main>
