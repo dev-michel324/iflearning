@@ -11,6 +11,7 @@ from .models import tb_disciplines, tb_modules
 from accounts.models import CustomUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+import os
 
 from .forms import *
 from .models import tb_dis_user
@@ -24,14 +25,18 @@ def index(request):
 def addDiscipline(request):
     if not verifyIfUserHasPermission(request):
         return redirect('accounts:dashboard')
-    if request.method == 'POST':
-        form = AddDiscipline(request.POST)
+    if request.method == 'POST' and request.FILES['dis_photo']:
+        form = AddDiscipline(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data['dis_name']
+            photo = request.FILES['dis_photo']
             discipline = tb_disciplines(
                 dis_name=name,
-                dis_user_created=request.user
+                dis_user_created=request.user,
+                dis_photo = photo
             )
+            discipline.save()
+            discipline.dis_photo = os.path.basename(str(discipline.dis_photo))
             discipline.save()
             messages.success(request, "Disciplina adicionada.")
             return redirect("accounts:dashboard")
