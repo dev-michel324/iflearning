@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 
 from . import views
@@ -13,5 +12,6 @@ urlpatterns = [
     path('logout', views.userLogout, name='logout'),
     path('addDisciplineToUser/<int:id>', views.addDisciplineToUser,
          name="add-discipline-to-user"),
-    path('removeDisciplineToUser/<int:id>', views.removeDisciplineToUser, name="remove-discipline-to-user")
+    path('removeDisciplineToUser/<int:id>', views.removeDisciplineToUser, name="remove-discipline-to-user"),
+    path('edit', views.userEdit, name="user.edit"),
 ]
