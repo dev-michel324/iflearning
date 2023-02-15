@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
+    photo = models.ImageField(upload_to="storage/app/profile", blank=True, null=True)
     email = models.EmailField(unique=True, blank=True)
     # birth = models.DateField(null=True)
     # school_grade = models.CharField(
